@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en">
+
+  <head>
+    <meta charset="UTF-8">
+    <title>SSE Client Example</title>
+  </head>
+
+  <body>
+    <h1>Visitor Count</h1>
+    <div id="visitor-count">0</div>
+
+    <script>
+      
+      const source = new EventSource("http://localhost:3000/stream");
+
+      source.onmessage = function (event) {
+        // Atualizar a contagem de visitantes
+        document.getElementById("visitor-count").innerText = event.data;
+      };
+
+      // Tratar erros de conexão
+      source.onerror = function (event) {
+        console.error("Erro ao receber eventos SSE", event);
+      };
+    </script>
+  </body>
+
+</html>
